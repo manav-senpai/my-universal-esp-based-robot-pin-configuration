@@ -1,0 +1,63 @@
+=========================================================
+PROJECT ARCEE / UNIVERSAL ESP32 ROBOT PINOUT (STANDARD 1)
+=========================================================
+Author: Manav Ahire
+Date: March 2026
+Note: Common Ground (GND) must be shared across all components!
+=========================================================
+
+[1] POWER BLOCK (Heavy Duty Screw Terminals)
+---------------------------------------------------------
+Terminal 1: 12V  (Direct from BMS / 18650s)
+Terminal 2: 5V   (From Buck Converter)
+Terminal 3: 3.3V (From ESP32 or Step-down)
+Terminal 4: GND  (Common Earth)
+
+[2] THE BASE BUILD (Hardwired Core)
+---------------------------------------------------------
+Left Motor Driver (BTS7960):
+- RPWM (Forward): GPIO 32
+- LPWM (Reverse): GPIO 33
+
+Right Motor Driver (BTS7960):
+- RPWM (Forward): GPIO 27
+- LPWM (Reverse): GPIO 14
+
+Core Controls & Lighting:
+- Status LED 1 (System OK): GPIO 16
+- Status LED 2 (ESP-NOW):   GPIO 17
+- Headlights Trigger (NPN): GPIO 18
+- Taillights Trigger (NPN): GPIO 19
+- Mode Switch Button:       GPIO 13 (Input w/ Pullup)
+
+[3] FRONT EXPANSION (Audio / Voice)
+---------------------------------------------------------
+Exposed Female Headers at the front of the chassis.
+- Speaker Left Channel (DAC 1):  GPIO 25
+- Speaker Right Channel (DAC 2): GPIO 26
+*Note: Plug PAM8403 Amp directly here.*
+
+[4] REAR EXPANSION BAY (10-Pin Data Block)
+---------------------------------------------------------
+Exposed Female Headers at the back for attachments.
+(Arranged in a 5x2 grid or single line as needed)
+
+-- I2C Communication (For OLEDs, Gyros, etc.) --
+- SDA: GPIO 21
+- SCL: GPIO 22
+
+-- General Output/PWM (For Servos, Arms, Lights) --
+- IO A: GPIO 4
+- IO B: GPIO 5
+- IO C: GPIO 23
+- IO D: GPIO 15 (Note: Boot strapping pin, keep floating at startup)
+
+-- Input Only (For IR, Ultrasonics, Analog Sensors) --
+- IN W: GPIO 34
+- IN X: GPIO 35
+- IN Y: GPIO 36 (VP)
+- IN Z: GPIO 39 (VN)
+
+=========================================================
+END OF CONFIGURATION
+=========================================================
