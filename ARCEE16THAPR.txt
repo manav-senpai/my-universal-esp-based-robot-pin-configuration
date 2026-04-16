@@ -1,0 +1,78 @@
+=========================================================
+PROJECT ARCEE / UNIVERSAL ESP32 ROBOT WIRING MANIFEST
+=========================================================
+Author: Manav Ahire
+Date: April 2026
+Note: Common Ground (GND) MUST be shared across all modules!
+=========================================================
+
+[1] POWER ARCHITECTURE (5-Switch Master Panel)
+---------------------------------------------------------
+Switch 1: BTS7960 Motor Drivers (Wakes first to absorb inrush current)
+Switch 2: 12V External (Master power for high-voltage attachments)
+Switch 3: PAM8403 Audio Amplifier
+Switch 4: 7805 Voltage Regulator (5V Lighting System)
+Switch 5: Buck Converter (Wakes ESP32 last, steps 12V down to 5.2V)
+
+[2] THE MOTOR BLOCK (BTS7960 Drivers)
+---------------------------------------------------------
+Left Track:
+- L_FWD: GPIO 32
+- L_REV: GPIO 33
+- Power: VCC to 5V Block, GND to Common Earth
+- Enablers (L_EN & R_EN): Hardwired to 5V Block
+
+Right Track:
+- R_FWD: GPIO 27
+- R_REV: GPIO 14
+- Power: VCC to 5V Block, GND to Common Earth
+- Enablers (L_EN & R_EN): Hardwired to 5V Block
+
+[3] THE LIGHTING RIG (via 2N2222 NPN Transistors)
+---------------------------------------------------------
+Headlights:
+- Trigger: GPIO 18 (via 2.2k resistor to Base)
+- Wiring: Emitter to Earth, Collector to negative of 4-Yellow LED series chain
+- Power: 12V Block to positive of LED chain
+
+Taillights:
+- Trigger: GPIO 19 (via 2.2k resistor to Base)
+- Wiring: Emitter to Earth, Collector to negative of 2-Red LED series chain
+- Power: 5V Block to positive of LED chain
+
+[4] CORE CONTROLS & STATUS
+---------------------------------------------------------
+- Wi-Fi Status LED: GPIO 2 (Positive leg) -> Resistor -> Earth
+- ESP-NOW Status LED: GPIO 12 (Positive leg) -> Resistor -> Earth (Pull-down config)
+- Mode Switch: GPIO 13 -> Physical Button -> Earth (Relies on internal pull-up)
+
+[5] AUDIO BAY (PAM8403 Amplifier)
+---------------------------------------------------------
+- Left Audio (L): GPIO 25
+- Right Audio (R): GPIO 26
+- Power: 5V and GND direct from Switch Panel
+- Audio Ground (Center): Common Earth
+
+[6] REAR EXPANSION & USB BRIDGE
+---------------------------------------------------------
+I2C Bus:
+- SDA: GPIO 21
+- SCL: GPIO 22
+
+USB Data Port (Front Chassis):
+- D+: GPIO 4
+- D-: GPIO 5
+
+General Output Headers:
+- IO C: GPIO 23
+- IO D: GPIO 15 (Boot strapping pin: Keep floating at startup)
+
+Sensor Input Headers:
+- IN W: GPIO 34
+- IN X: GPIO 35
+- IN Y: GPIO 36 (VP)
+- IN Z: GPIO 39 (VN)
+
+=========================================================
+END OF MANIFEST
+=========================================================
